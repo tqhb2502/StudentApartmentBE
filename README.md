@@ -1,18 +1,25 @@
-## Cài đặt package
+# Trang web tìm kiếm phòng trọ
+
+## 1. Shiyousho
+    https://docs.google.com/spreadsheets/d/1HsgODrQXpRjcx2sSIUbgq6Z2qDV6rKnhnmoF6Ia8sk8/edit#gid=1605266564
+
+## 2. Cài đặt dự án
+
+### 2.1. Cài đặt package
     composer install
 
-## Tạo key dự án
+### 2.2. Tạo key dự án
     php artisan key:generate
 
-## Tạo database và kết nối
+### 2.3. Tạo database và kết nối
     Tạo database với tên student_apartment_db
     Duplicate tệp .env.example, đổi tên thành .env
 
-## Migrate database
+### 2.4. Migrate database
     php artisan migrate
 
-## Chạy các file seeder tạo dữ liệu mẫu
+### 2.5. Chạy các file seeder tạo dữ liệu mẫu
     php artisan db:seed
 
-## Chạy dự án
+### 2.6. Chạy dự án
     php artisan serve
