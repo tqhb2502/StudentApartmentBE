@@ -1,15 +1,18 @@
 ## Cài đặt package
     composer install
 
-## Tạo key
+## Tạo key dự án
     php artisan key:generate
 
 ## Tạo database và kết nối
     Tạo database với tên student_apartment_db
     Duplicate tệp .env.example, đổi tên thành .env
 
-## Migrate và seed dữ liệu
-    php artisan migrate --seed
+## Migrate database
+    php artisan migrate
 
-## Chạy project
+## Chạy các file seeder tạo dữ liệu mẫu
+    php artisan db:seed
+
+## Chạy dự án
     php artisan serve
