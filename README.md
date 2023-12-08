@@ -1,7 +1,7 @@
 # Trang web tìm kiếm phòng trọ
 
 ## 1. Shiyousho
-    https://docs.google.com/spreadsheets/d/1HsgODrQXpRjcx2sSIUbgq6Z2qDV6rKnhnmoF6Ia8sk8/edit#gid=1605266564
+    [火1-OSAKE-k64-ITSS2_システム仕様書（Shichinin）](https://docs.google.com/spreadsheets/d/1HsgODrQXpRjcx2sSIUbgq6Z2qDV6rKnhnmoF6Ia8sk8/edit#gid=1605266564)
 
 ## 2. Cài đặt dự án
 
@@ -12,8 +12,8 @@
     php artisan key:generate
 
 ### 2.3. Tạo database và kết nối
-    Tạo database với tên student_apartment_db
-    Duplicate tệp .env.example, đổi tên thành .env
+    > Tạo database với tên student_apartment_db
+    > Duplicate tệp .env.example, đổi tên thành .env
 
 ### 2.4. Migrate database
     php artisan migrate
