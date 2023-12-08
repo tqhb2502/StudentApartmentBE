@@ -5,7 +5,7 @@
     php artisan key:generate
 
 ## Tạo database và kết nối
-    Tạo database với tên StudentApartmentDB
+    Tạo database với tên student_apartment_db
     Duplicate tệp .env.example, đổi tên thành .env
 
 ## Migrate và seed dữ liệu
