@@ -20,6 +20,6 @@ class Image extends Model
 
     // 1 post - n images
     public function post() {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 }

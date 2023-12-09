@@ -18,7 +18,7 @@ class ImageSeeder extends Seeder
                 DB::table('images')->insert(
                 [
                     'post_id' => $i,
-                    'url' => "image\\$i\\anh$j.jpg"
+                    'url' => "image\\$i\\anh$j.jpg",
                 ]);
             }
         }

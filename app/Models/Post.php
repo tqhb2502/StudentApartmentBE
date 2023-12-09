@@ -33,16 +33,16 @@ class Post extends Model
 
     // 1 user - n posts
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     // 1 post - n images
     public function images() {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'post_id', 'id');
     }
 
     // 1 post - n videos
     public function videos() {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(Video::class, 'post_id', 'id');
     }
 }

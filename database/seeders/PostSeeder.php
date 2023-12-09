@@ -37,6 +37,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 21.01696411765529,
                 "longitude" => 105.85215587641993,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 2,
@@ -56,6 +58,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 21.008412668682436,
                 "longitude" => 105.85333818226412,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 3,
@@ -76,6 +80,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 20.998174179206124,
                 "longitude" => 105.84618766138327,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 4,
@@ -98,6 +104,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 0,
                 "latitude" => 20.996060934023543,
                 "longitude" => 105.857414,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 5,
@@ -116,6 +124,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 20.997753803465898,
                 "longitude" => 105.86682908465419,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 6,
@@ -135,6 +145,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 3,
                 "latitude" => 20.996349868212928,
                 "longitude" => 105.84586108465419,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 7,
@@ -155,6 +167,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 4,
                 "latitude" => 21.008948874977467,
                 "longitude" => 105.85962525396255,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 8,
@@ -173,6 +187,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 21.007243000000006,
                 "longitude" => 105.84954325396255,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 9,
@@ -195,6 +211,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 20.998668065287493,
                 "longitude" => 105.86044708465418,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
             [
                 'user_id' => 10,
@@ -220,6 +238,8 @@ class PostSeeder extends Seeder
                 "bathroom_num" => 1,
                 "latitude" => 21.002986000000003,
                 "longitude" => 105.865675,
+                "created_at" => now(),
+                "updated_at" => now(),
             ],
         ]);
     }

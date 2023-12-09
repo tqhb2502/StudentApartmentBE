@@ -20,6 +20,6 @@ class Video extends Model
 
     // 1 post - n videos
     public function post() {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 }
