@@ -18,6 +18,8 @@ use App\Http\Controllers\PostController;
 Route::prefix('posts')->group(function () {
     Route::get('/', [PostController::class, 'index'])
         ->name('post.list');
-    Route::get('/aa', [PostController::class, 'index1'])
-        ->name('post.listaa');
+    Route::get('/featured', [PostController::class, 'featured'])
+        ->name('post.featured');
+    Route::get('/{id}', [PostController::class, 'show'])
+        ->name('post.show');
 });

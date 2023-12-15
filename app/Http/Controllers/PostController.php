@@ -48,4 +48,19 @@ class PostController extends Controller
 
         return $posts;
     }
+
+    public function show($id) {
+        $post = Post::with(['user', 'images', 'videos'])->find($id);
+        $post->view_number++;
+        $post->save();
+        return $post;
+    }
+
+    public function featured() {
+        $featuredPosts = Post::with('images')
+            ->orderBy('view_number', 'desc')
+            ->limit(5)
+            ->get();
+        return $featuredPosts;
+    }
 }
