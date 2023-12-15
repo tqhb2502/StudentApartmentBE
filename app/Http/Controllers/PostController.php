@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index(Request $request) {
 
         $query = Post::query();
-        
+
         $sortType = $request->query('sortType', 0);
         switch ($sortType) {
             case 1:
@@ -62,5 +62,72 @@ class PostController extends Controller
             ->limit(5)
             ->get();
         return $featuredPosts;
+    }
+    
+    public function similar(Request $request) {
+        $type = $request->type;
+        $price = $request->price;
+        $area = $request->area;
+        $district = $request->district;
+        $ward = $request->ward;
+
+        $query = Post::query();
+
+        // type
+        if($type)
+            $query->where('type', $type);
+
+        // price
+        if($price)
+            $query->whereBetween('price', [$price - 500000, $price + 500000]);
+
+        // area
+        if($area)
+            $query->whereBetween('land_area', [$area - 10, $area + 10]);
+
+        // district
+        if($district && $ward)
+            $query
+                ->where('district', 'LIKE', "%$district%")
+                ->where('ward', 'LIKE', "%$ward%");
+
+        $result = $query->get();
+
+        return $result;
+    }
+
+    public function filter(Request $request) {
+        $type = $request->type;
+        $priceMin = $request->priceMin;
+        $priceMax = $request->priceMax;
+        $areaMin = $request->areaMin;
+        $areaMax = $request->areaMax;
+        $district = $request->district;
+        $ward = $request->ward;
+        $street = $request->street;
+
+        $query = Post::query();
+
+        // type
+        if($type)
+            $query->where('type', $type);
+
+        // price
+        $query->comparePrice($priceMin, $priceMax);
+
+        // area
+        $query->compareArea($areaMin, $areaMax);
+
+        // district
+        if($district) $query->where('district', 'LIKE', "%$district%");
+
+        if($ward) $query->where('ward', 'LIKE', "%$ward%");
+
+        if($street) $query->where('street', 'LIKE', "%$street%");
+
+        $result = $query->get();
+
+        return $result;
+
     }
 }

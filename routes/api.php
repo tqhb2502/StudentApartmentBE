@@ -20,6 +20,10 @@ Route::prefix('posts')->group(function () {
         ->name('post.list');
     Route::get('/featured', [PostController::class, 'featured'])
         ->name('post.featured');
+    Route::get('/similar', [PostController::class, 'similar'])
+        ->name('post.similar');
+    Route::get('/filter', [PostController::class, 'filter'])
+        ->name('post.filter');
     Route::get('/{id}', [PostController::class, 'show'])
-        ->name('post.show');
+            ->name('post.show');
 });
