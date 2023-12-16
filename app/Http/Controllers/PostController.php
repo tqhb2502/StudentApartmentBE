@@ -53,6 +53,9 @@ class PostController extends Controller
         $post = Post::with(['user', 'images', 'videos'])->find($id);
         $post->view_number++;
         $post->save();
+        foreach($post->images as $image) {
+            $image['url'] = asset($image['url']);
+        }
         return $post;
     }
 
@@ -63,7 +66,7 @@ class PostController extends Controller
             ->get();
         return $featuredPosts;
     }
-    
+
     public function similar(Request $request) {
         $type = $request->type;
         $price = $request->price;
