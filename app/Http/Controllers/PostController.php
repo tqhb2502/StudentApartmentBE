@@ -97,36 +97,32 @@ class PostController extends Controller
     }
 
     public function similar(Request $request) {
-
-        $type = $request->type;
+        $id = $request->id;
         $price = $request->price;
-        $area = $request->area;
         $district = $request->district;
         $ward = $request->ward;
 
-        $query = Post::query();
-
-        // type
-        if ($type)
-            $query->where('type', $type);
-
-        // price
-        if ($price)
-            $query->whereBetween('price', [$price - 500000, $price + 500000]);
-
-        // area
-        if ($area)
-            $query->whereBetween('land_area', [$area - 10, $area + 10]);
+        $query = Post::query()->with(['images', 'videos'])->whereNot('id', $id);
 
         // district
         if ($district && $ward)
-            $query
-                ->where('district', 'LIKE', "%$district%")
-                ->where('ward', 'LIKE', "%$ward%");
+        $query
+            ->where('district', 'LIKE', "%$district%")
+            ->where('ward', 'LIKE', "%$ward%");
 
-        $result = $query->with(['images', 'videos'])->get();
+        $query1 = $query;
+        $res1 = $query1->get();
 
-        return $result;
+        // price
+        if ($price){
+            $query->whereBetween('price', [$price - 500000, $price + 500000]);
+        }
+        $res = $query->get();
+
+        if(count($res) > 2)
+            return $res;
+        else
+            return $res1;
     }
 
     public function filter(Request $request) {

@@ -47,14 +47,14 @@ class Post extends Model
     }
 
     public function scopeComparePrice($query, $priceMin, $priceMax ) {
-        if($priceMin && $priceMax) $query->whereBetween('price',  [$priceMin, $priceMax]);
+        if($priceMin && $priceMax) return $query->whereBetween('price',  [$priceMin, $priceMax]);
         if(!$priceMin && $priceMax) return $query->where('price', '<', $priceMax);
         if(!$priceMax && $priceMin) return $query->where('price', '>', $priceMin);
     }
 
     public function scopeCompareArea($query, $areaMin, $areaMax ) {
         if($areaMin && $areaMax) return $query->whereBetween('land_area',  [$areaMin, $areaMax]);
-        if(!$areaMin && $areaMax) $query->where('land_area', '<', $areaMax);
-        if(!$areaMax && $areaMin) $query->where('land_area', '>', $areaMin);
+        if(!$areaMin && $areaMax) return $query->where('land_area', '<', $areaMax);
+        if(!$areaMax && $areaMin) return $query->where('land_area', '>', $areaMin);
     }
 }
