@@ -40,8 +40,6 @@ class PostController extends Controller
             unset($post['user']);
 
             foreach($post->images as $image) {
-
-                $image['url'] = asset($image['url']);
                 unset($image['created_at'], $image['updated_at']);
             }
         }
@@ -53,9 +51,6 @@ class PostController extends Controller
         $post = Post::with(['user', 'images', 'videos'])->find($id);
         $post->view_number++;
         $post->save();
-        foreach($post->images as $image) {
-            $image['url'] = asset($image['url']);
-        }
         return $post;
     }
 
@@ -68,6 +63,7 @@ class PostController extends Controller
     }
 
     public function similar(Request $request) {
+
         $type = $request->type;
         $price = $request->price;
         $area = $request->area;
@@ -94,12 +90,13 @@ class PostController extends Controller
                 ->where('district', 'LIKE', "%$district%")
                 ->where('ward', 'LIKE', "%$ward%");
 
-        $result = $query->get();
+        $result = $query->with(['images', 'videos'])->get();
 
         return $result;
     }
 
     public function filter(Request $request) {
+
         $type = $request->type;
         $priceMin = $request->priceMin;
         $priceMax = $request->priceMax;
@@ -128,7 +125,7 @@ class PostController extends Controller
 
         if($street) $query->where('street', 'LIKE', "%$street%");
 
-        $result = $query->get();
+        $result = $query->with(['images', 'videos'])->get();
 
         return $result;
 
