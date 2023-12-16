@@ -63,7 +63,7 @@ class PostController extends Controller
         if ($street)
             $query->where('street', 'LIKE', "%$street%");
 
-        $posts = $query->get();
+        $posts = $query->with(['images', 'videos'])->get();
 
         foreach ($posts as $post) {
 
