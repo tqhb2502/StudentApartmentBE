@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         $query = Post::query();
 
         $sortType = $request->query('sortType', 0);
+        $type = $request->type;
+        $priceMin = $request->priceMin;
+        $priceMax = $request->priceMax;
+        $areaMin = $request->areaMin;
+        $areaMax = $request->areaMax;
+        $district = $request->district;
+        $ward = $request->ward;
+        $street = $request->street;
+        //sort:
         switch ($sortType) {
             case 1:
                 $query->orderBy('created_at', 'desc');
@@ -30,16 +40,38 @@ class PostController extends Controller
             case 5:
                 $query->orderBy('land_area', 'desc');
         }
+        //filter:
+        // type
+        if ($type)
+            $query->whereIn('type', $type);
+
+        // price
+        if ($priceMin)
+            $query->comparePrice($priceMin, $priceMax);
+
+        // area
+        if ($areaMin)
+            $query->compareArea($areaMin, $areaMax);
+
+        // district
+        if ($district)
+            $query->where('district', 'LIKE', "%$district%");
+
+        if ($ward)
+            $query->where('ward', 'LIKE', "%$ward%");
+
+        if ($street)
+            $query->where('street', 'LIKE', "%$street%");
 
         $posts = $query->get();
 
-        foreach($posts as $post) {
+        foreach ($posts as $post) {
 
             $post['fullname'] = $post->user->name;
             $post['phone'] = $post->user->phone;
             unset($post['user']);
 
-            foreach($post->images as $image) {
+            foreach ($post->images as $image) {
 
                 $image['url'] = asset($image['url']);
                 unset($image['created_at'], $image['updated_at']);
@@ -49,17 +81,19 @@ class PostController extends Controller
         return $posts;
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $post = Post::with(['user', 'images', 'videos'])->find($id);
         $post->view_number++;
         $post->save();
-        foreach($post->images as $image) {
+        foreach ($post->images as $image) {
             $image['url'] = asset($image['url']);
         }
         return $post;
     }
 
-    public function featured() {
+    public function featured()
+    {
         $featuredPosts = Post::with('images')
             ->orderBy('view_number', 'desc')
             ->limit(5)
@@ -67,7 +101,8 @@ class PostController extends Controller
         return $featuredPosts;
     }
 
-    public function similar(Request $request) {
+    public function similar(Request $request)
+    {
         $type = $request->type;
         $price = $request->price;
         $area = $request->area;
@@ -77,19 +112,19 @@ class PostController extends Controller
         $query = Post::query();
 
         // type
-        if($type)
+        if ($type)
             $query->where('type', $type);
 
         // price
-        if($price)
+        if ($price)
             $query->whereBetween('price', [$price - 500000, $price + 500000]);
 
         // area
-        if($area)
+        if ($area)
             $query->whereBetween('land_area', [$area - 10, $area + 10]);
 
         // district
-        if($district && $ward)
+        if ($district && $ward)
             $query
                 ->where('district', 'LIKE', "%$district%")
                 ->where('ward', 'LIKE', "%$ward%");
@@ -99,7 +134,8 @@ class PostController extends Controller
         return $result;
     }
 
-    public function filter(Request $request) {
+    public function filter(Request $request)
+    {
         $type = $request->type;
         $priceMin = $request->priceMin;
         $priceMax = $request->priceMax;
@@ -112,7 +148,7 @@ class PostController extends Controller
         $query = Post::query();
 
         // type
-        if($type)
+        if ($type)
             $query->where('type', $type);
 
         // price
@@ -122,11 +158,14 @@ class PostController extends Controller
         $query->compareArea($areaMin, $areaMax);
 
         // district
-        if($district) $query->where('district', 'LIKE', "%$district%");
+        if ($district)
+            $query->where('district', 'LIKE', "%$district%");
 
-        if($ward) $query->where('ward', 'LIKE', "%$ward%");
+        if ($ward)
+            $query->where('ward', 'LIKE', "%$ward%");
 
-        if($street) $query->where('street', 'LIKE', "%$street%");
+        if ($street)
+            $query->where('street', 'LIKE', "%$street%");
 
         $result = $query->get();
 
