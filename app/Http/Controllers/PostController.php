@@ -46,11 +46,11 @@ class PostController extends Controller
             $query->whereIn('type', $type);
 
         // price
-        if ($priceMin)
+        if ($priceMin || $priceMax)
             $query->comparePrice($priceMin, $priceMax);
 
         // area
-        if ($areaMin)
+        if ($areaMin || $areaMax)
             $query->compareArea($areaMin, $areaMax);
 
         // district
