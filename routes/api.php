@@ -49,4 +49,5 @@ Route::group(['middleware' => ['web']], function () {
             ->name('post.add-bookmark');
         Route::delete('/deleteBm', [UserController::class, 'deleteBm'])
             ->name('post.delete-bookmark');
+    });
 });
