@@ -17,7 +17,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'index']);
 
 Route::prefix('posts')->group(function () {
     Route::get('/', [PostController::class, 'index'])
