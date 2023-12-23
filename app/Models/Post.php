@@ -46,6 +46,11 @@ class Post extends Model
         return $this->hasMany(Video::class, 'post_id', 'id');
     }
 
+    // 1 post - n reviews
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
     public function scopeComparePrice($query, $priceMin, $priceMax ) {
         if($priceMin && $priceMax) return $query->whereBetween('price',  [$priceMin, $priceMax]);
         if(!$priceMin && $priceMax) return $query->where('price', '<', $priceMax);
