@@ -21,7 +21,7 @@ class ReviewController extends Controller
             $review['like_number'] = ReviewLike::where('review_id', $review->id)->count();
 
             $cur_review_user = ReviewLike::where('review_id', $review->id)
-                ->where('user_id', $postDetailRequest->session()->get('userId'))
+                ->where('user_id', $postDetailRequest->get('user_id'))
                 ->get();
             $review['liked_by_current_user'] = $cur_review_user->isNotEmpty();
         }
@@ -35,13 +35,13 @@ class ReviewController extends Controller
         $postId = $request->postId;
         $content = $request->content;
 
-        Review::create([
+        $newReview=Review::create([
             'user_id' => $userId,
             'post_id' => $postId,
             'content' => $content,
-        ])->save();
+        ]);
 
-        return response('ok');
+        return $newReview;
     }
 
     public function like(Request $request) {
