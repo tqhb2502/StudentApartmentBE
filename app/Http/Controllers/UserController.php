@@ -16,7 +16,7 @@ class UserController extends Controller
 
         $user = User::find($userId);
 
-        return $user->bookmarks;
+        return $user->bookmarks()->with(['images', 'videos'])->get();
     }
     public function storeBm(Request $request)
     {
