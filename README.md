@@ -19,7 +19,7 @@
     php artisan migrate
 
 ### 2.5. Chạy các file seeder tạo dữ liệu mẫu
-    php artisan db:seed
+    php artisan migrate:refresh --seed
 
 ### 2.6. Chạy dự án
     php artisan serve
