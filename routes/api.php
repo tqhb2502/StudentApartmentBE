@@ -20,8 +20,8 @@ use App\Http\Controllers\UserController;
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/login', [LoginController::class, 'index']);
-
+    Route::post('/login', [LoginController::class, 'index']);
+ 
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])
             ->name('post.list');
@@ -34,15 +34,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/{id}', [PostController::class, 'show'])
             ->name('post.show');
     });
-    
-    Route::prefix('user')->group(function () {
-        Route::get('/getBm', [UserController::class, 'getBm'])
-            ->name('post.get-bookmark');
-        Route::post('/addBm', [UserController::class, 'storeBm'])
-            ->name('post.add-bookmark');
-        Route::get('/deleteBm', [UserController::class, 'deleteBm'])
-            ->name('post.delete-bookmark');
-    });
 
     Route::prefix('review')->group(function () {
         Route::post('/store', [ReviewController::class, 'store'])
@@ -50,4 +41,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/like', [ReviewController::class, 'like'])
             ->name('review.like');
     });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/getBm', [UserController::class, 'getBm'])
+            ->name('post.get-bookmark');
+        Route::post('/addBm', [UserController::class, 'storeBm'])
+            ->name('post.add-bookmark');
+        Route::delete('/deleteBm', [UserController::class, 'deleteBm'])
+            ->name('post.delete-bookmark');
 });
