@@ -79,11 +79,16 @@ class PostController extends Controller
         return $posts;
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $post = Post::with(['user', 'images', 'videos'])->find($id);
+
         $post->view_number++;
         $post->save();
+
+        $reviewController = new ReviewController();
+        $post['reviews'] = $reviewController->index($request, $post->id);
+
         return $post;
     }
 
