@@ -123,6 +123,15 @@ class UserSeeder extends Seeder
                 'avatar' => 'url_avatar',
                 'username' => "nguyenkimbao",
                 'password' => '12345678',
+            ],
+            [
+                'type' => 2,
+                'name' => "Hứa Việt Hoàng",
+                'phone' => "062357854",
+                'email' => "huaviethoang@gmail.com",
+                'avatar' => 'url_avatar',
+                'username' => "huaviethoang",
+                'password' => '12345678',
             ]
         ]);
     }
