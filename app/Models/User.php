@@ -56,4 +56,14 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
+
+    // 1 user - n reviews
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
+    // 1 user - n review_likes
+    public function reviewLikes() {
+        return $this->hasMany(ReviewLike::class);
+    }
 }

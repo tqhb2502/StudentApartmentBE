@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -17,26 +18,35 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('/login', [LoginController::class, 'index']);
+Route::group(['middleware' => ['web']], function () {
 
-Route::prefix('posts')->group(function () {
-    Route::get('/', [PostController::class, 'index'])
-        ->name('post.list');
-    Route::get('/featured', [PostController::class, 'featured'])
-        ->name('post.featured');
-    Route::get('/similar', [PostController::class, 'similar'])
-        ->name('post.similar');
-    Route::get('/filter', [PostController::class, 'filter'])
-        ->name('post.filter');
-    Route::get('/{id}', [PostController::class, 'show'])
-        ->name('post.show');
-});
+    Route::post('/login', [LoginController::class, 'index']);
+ 
+    Route::prefix('posts')->group(function () {
+        Route::get('/', [PostController::class, 'index'])
+            ->name('post.list');
+        Route::get('/featured', [PostController::class, 'featured'])
+            ->name('post.featured');
+        Route::get('/similar', [PostController::class, 'similar'])
+            ->name('post.similar');
+        Route::get('/filter', [PostController::class, 'filter'])
+            ->name('post.filter');
+        Route::get('/{id}', [PostController::class, 'show'])
+            ->name('post.show');
+    });
 
-Route::prefix('user')->group(function () {
-    Route::get('/getBm', [UserController::class, 'getBm'])
-        ->name('post.get-bookmark');
-    Route::post('/addBm', [UserController::class, 'storeBm'])
-        ->name('post.add-bookmark');
-    Route::delete('/deleteBm', [UserController::class, 'deleteBm'])
-        ->name('post.delete-bookmark');
+    Route::prefix('review')->group(function () {
+        Route::post('/store', [ReviewController::class, 'store'])
+            ->name('review.store');
+        Route::post('/like', [ReviewController::class, 'like'])
+            ->name('review.like');
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/getBm', [UserController::class, 'getBm'])
+            ->name('post.get-bookmark');
+        Route::post('/addBm', [UserController::class, 'storeBm'])
+            ->name('post.add-bookmark');
+        Route::delete('/deleteBm', [UserController::class, 'deleteBm'])
+            ->name('post.delete-bookmark');
 });
