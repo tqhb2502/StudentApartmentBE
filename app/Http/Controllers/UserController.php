@@ -14,11 +14,9 @@ class UserController extends Controller
     {
         $userId = $request->user_id;
 
-        $postIds = Bookmark::where('user_id', $userId)->pluck('post_id')->toArray();
+        $user = User::find($userId);
 
-        $posts = Post::whereIn('id', $postIds)->get();
-
-        return $posts;
+        return $user->bookmarks;
     }
     public function storeBm(Request $request)
     {

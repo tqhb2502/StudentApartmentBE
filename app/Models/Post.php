@@ -51,6 +51,12 @@ class Post extends Model
         return $this->hasMany(Review::class);
     }
 
+    // n posts - n users
+    public function bookmarkedBy()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks', 'post_id', 'user_id');
+    }
+
     public function scopeComparePrice($query, $priceMin, $priceMax ) {
         if($priceMin && $priceMax) return $query->whereBetween('price',  [$priceMin, $priceMax]);
         if(!$priceMin && $priceMax) return $query->where('price', '<', $priceMax);

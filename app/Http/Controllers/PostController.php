@@ -23,6 +23,7 @@ class PostController extends Controller
         $district = $request->district;
         $ward = $request->ward;
         $street = $request->street;
+        $userId = $request->user_id;
         //sort:
         switch ($sortType) {
             case 1:
@@ -76,15 +77,31 @@ class PostController extends Controller
             }
         }
 
+        // xác định các post có trong bookmark hay k ?
+        $user = User::find($userId);
+        $bookmarkedPosts = $user->bookmarks()->pluck('post_id')->toArray();
+
+        foreach ($posts as $post) {
+            $post->isBookmarked = in_array($post->id, $bookmarkedPosts);
+        }
+
         return $posts;
     }
 
     public function show(Request $request, $id)
     {
+        $userId = $request->user_id;
+
         $post = Post::with(['user', 'images', 'videos'])->find($id);
 
         $post->view_number++;
         $post->save();
+
+        // post đã thêm vào bookmark hay chưa
+        $user = User::find($userId);
+        $bookmarkedPosts = $user->bookmarks()->pluck('post_id')->toArray();
+
+        $post->isBookmarked = in_array($post->id, $bookmarkedPosts);
 
         $reviewController = new ReviewController();
         $post['reviews'] = $reviewController->index($request, $post->id);
