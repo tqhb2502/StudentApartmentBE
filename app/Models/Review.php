@@ -29,8 +29,8 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-    // 1 review - n review_likes
-    public function reviewLikes() {
-        return $this->hasMany(ReviewLike::class);
+    // n users -like- n reviews
+    public function likedUsers() {
+        return $this->belongsToMany(User::class, 'review_likes');
     }
 }

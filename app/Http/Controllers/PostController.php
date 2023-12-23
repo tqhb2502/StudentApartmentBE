@@ -101,7 +101,6 @@ class PostController extends Controller
         $post->save();
 
         // post đã thêm vào bookmark hay chưa
-
         $user = User::find($userId);
         if($user) {
             $bookmarkedPosts = $user->bookmarks()->pluck('post_id')->toArray();
@@ -109,8 +108,9 @@ class PostController extends Controller
             $post->isSaved = in_array($post->id, $bookmarkedPosts);
         }
 
+        // thêm review
         $reviewController = new ReviewController();
-        $post['reviews'] = $reviewController->index($request, $post->id);
+        $post['reviews'] = $reviewController->index($userId, $post->id);
 
         return $post;
     }

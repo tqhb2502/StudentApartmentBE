@@ -17,9 +17,6 @@ class LoginController extends Controller
         if(!$user)
             return response([], 404);
 
-        $request->session()->flush();
-        $request->session()->put('userId', $user->id);
-
         return $user;
     }
 }
