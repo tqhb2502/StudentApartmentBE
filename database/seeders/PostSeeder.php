@@ -401,7 +401,7 @@ class PostSeeder extends Seeder
                 "street" => "29 Đại La",
                 "ward" => "Trương Định",
                 "district" => "Hai Bà Trưng",
-                "price" => 3800000,
+                "price" => 7800000,
                 "land_area" => 25,
                 "type" => 3,
                 "view_number" => 180,

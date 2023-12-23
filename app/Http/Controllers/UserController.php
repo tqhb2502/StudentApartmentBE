@@ -33,6 +33,10 @@ class UserController extends Controller
             response()->json(['error' => 'invalid'], 401);
         }
 
+        if(Bookmark::where('user_id', $userId)->where('post_id', $postId)->first() != null) {
+            return response()->json(['error' => 'already exist'], 404);
+        }
+
         $item = Bookmark::create(['user_id' => $userId, 'post_id' => $postId]);
         return response()->json(['status' => 'success'], 200);
     }
@@ -50,6 +54,6 @@ class UserController extends Controller
             return response()->json(['status' => 'success'], 200);
         }
         else
-            response()->json(['error' => 'invalid'], 401);
+            return response()->json(['error' => 'invalid'], 401);
     }
 }
