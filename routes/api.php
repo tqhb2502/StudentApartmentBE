@@ -37,6 +37,6 @@ Route::prefix('user')->group(function () {
         ->name('post.get-bookmark');
     Route::post('/addBm', [UserController::class, 'storeBm'])
         ->name('post.add-bookmark');
-    Route::get('/deleteBm', [UserController::class, 'deleteBm'])
+    Route::delete('/deleteBm', [UserController::class, 'deleteBm'])
         ->name('post.delete-bookmark');
 });
