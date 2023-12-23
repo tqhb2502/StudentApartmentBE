@@ -18,10 +18,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+// Route::group(['middleware' => ['web']], function () {
 
     Route::post('/login', [LoginController::class, 'index']);
- 
+
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])
             ->name('post.list');
@@ -50,4 +50,4 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('/deleteBm', [UserController::class, 'deleteBm'])
             ->name('post.delete-bookmark');
     });
-});
+// });

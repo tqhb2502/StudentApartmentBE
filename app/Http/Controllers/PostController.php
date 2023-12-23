@@ -84,7 +84,7 @@ class PostController extends Controller
             $bookmarkedPosts = $user->bookmarks()->pluck('post_id')->toArray();
 
             foreach ($posts as $post) {
-                $post->isSaved = in_array($post->id, $bookmarkedPosts);
+                $post['isSaved'] = in_array($post->id, $bookmarkedPosts);
             }
         }
 
