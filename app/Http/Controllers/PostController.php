@@ -82,7 +82,7 @@ class PostController extends Controller
         $bookmarkedPosts = $user->bookmarks()->pluck('post_id')->toArray();
 
         foreach ($posts as $post) {
-            $post->isBookmarked = in_array($post->id, $bookmarkedPosts);
+            $post->isSaved = in_array($post->id, $bookmarkedPosts);
         }
 
         return $posts;
@@ -101,7 +101,7 @@ class PostController extends Controller
         $user = User::find($userId);
         $bookmarkedPosts = $user->bookmarks()->pluck('post_id')->toArray();
 
-        $post->isBookmarked = in_array($post->id, $bookmarkedPosts);
+        $post->isSaved = in_array($post->id, $bookmarkedPosts);
 
         $reviewController = new ReviewController();
         $post['reviews'] = $reviewController->index($request, $post->id);
