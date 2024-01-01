@@ -43,7 +43,7 @@ class PostController extends Controller
         }
         //filter:
         // type
-        if ($type)
+        if (isset($type))
             $query->whereIn('type', $type);
 
         // price
@@ -165,10 +165,10 @@ class PostController extends Controller
         $street = $request->street;
 
         $query = Post::query();
-
+//        return $type;
         // type
-        if ($type)
-            $query->where('type', $type);
+        if (isset($type))
+            $query->whereIn('type', $type);
 
         // price
         $query->comparePrice($priceMin, $priceMax);

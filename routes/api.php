@@ -23,13 +23,13 @@ use App\Http\Controllers\UserController;
     Route::post('/login', [LoginController::class, 'index']);
 
     Route::prefix('posts')->group(function () {
-        Route::get('/', [PostController::class, 'index'])
+        Route::post('/', [PostController::class, 'index'])
             ->name('post.list');
         Route::get('/featured', [PostController::class, 'featured'])
             ->name('post.featured');
         Route::get('/similar', [PostController::class, 'similar'])
             ->name('post.similar');
-        Route::get('/filter', [PostController::class, 'filter'])
+        Route::post('/filter', [PostController::class, 'filter'])
             ->name('post.filter');
         Route::get('/{id}', [PostController::class, 'show'])
             ->name('post.show');
